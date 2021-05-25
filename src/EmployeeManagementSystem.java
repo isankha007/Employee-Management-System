@@ -1,16 +1,17 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EmployeeManagementSystem {
-
-	 public void menu()
+     ArrayList<Employee> employees[];
+	 public static void menu()
 	  {
 	    System.out.println("\t\t*******************************************");
 	    System.out.println("\t\t\t  EMPLOYEE MANAGEMENT SYSTEM");
 	    System.out.println("\t\t*******************************************");
 	    System.out.println("\t\t\t    --------------------");
-	    System.out.println("\t\t\t     ~$ Sankha ");
+	    System.out.println("\t\t\t     ~$ Sankhadeep ");
 	    System.out.println("\t\t\t    --------------------");
 	    System.out.println("\n\nPress 1 : To Add an Employee Details");
 	    System.out.println("Press 2 : To See an Employee Details ");
@@ -34,15 +35,11 @@ public class EmployeeManagementSystem {
 	    System.out.print("\033[H\033[2J");
 
 	    Scanner sc=new Scanner(System.in);
-	    Employee_Show epv =new Employee_Show();
 
 	    int i=0;
 
-	    /*** Callining Mainmenu Class function ****/
-	    MainMenu obj1 = new MainMenu();
-	    obj1.menu();
+	    menu();
 
-	    /*** Initialising loop for Menu Choices ***/
 	    while(i<6)
 	    {
 
@@ -55,27 +52,47 @@ public class EmployeeManagementSystem {
 	        case 1:
 	        {
 	        /** Creating class's object and calling Function using that object **/
-	        Employee_Add ep =new Employee_Add();
-	        ep.createFile();
+	        	  String firstName;
+		          String lastName;
+		          String dOB;
+		          String empId;
+		          Double salary;
+		         // String employ_contact;
+		          Department dpt= new Department();
+		          //Scanner sc=new Scanner(System.in);
+		          System.out.print("Enter Employee's  first name --------: ");
+		          firstName=sc.nextLine();
+		          System.out.print("Enter Employee's  last name -: ");
+		          lastName=sc.nextLine();
+		          System.out.print("Enter Employee's ID ----------: \n");
+		          empId=sc.nextLine();
+		          System.out.print("Enter Employee's DOB ----: \n");
+		          dOB=sc.nextLine();
+		          System.out.print("Enter Employee's Dept ID ----: \n");
+		          dpt.departmentId=sc.nextLine();
+		          System.out.print("Enter Employee's Dept Name ----: \n");
+		          dpt.departmentName=sc.nextLine();
+		          System.out.print("Enter Employee's Salary ------: \n");
+		          salary=sc.nextDouble();  
+	        	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt);
+	        	  System.out.println(emp);
+	           
 
 	        System.out.print("\033[H\033[2J");
-	        obj1.menu();
+	       //menu();
 	        break;
 	        }
 	        case 2:
 	        {
 	          System.out.print("\nPlease Enter Employee's ID :");
 	          String s=sc.nextLine();
-	          try
-	          {
-	            epv.viewFile(s);}
-	            catch(Exception e){System.out.println(e);}
-
+	         
+	         
 
 	            System.out.print("\nPress Enter to Continue...");
 	            sc.nextLine();
 	            System.out.print("\033[H\033[2J");
-	            obj1.menu();
+	            menu();
 	            break;
 	          }
 
@@ -83,18 +100,18 @@ public class EmployeeManagementSystem {
 	        {
 	          System.out.print("\nPlease Enter Employee's ID :");
 	          String s=sc.nextLine();
-	          Employee_Remove epr =new Employee_Remove();
-	          epr.removeFile(s);
-
-	          System.out.print("\nPress Enter to Continue...");
-	          sc.nextLine();
-	          System.out.print("\033[H\033[2J");
-	          obj1.menu();
+//	          Employee_Remove epr =new Employee_Remove();
+//	          epr.removeFile(s);
+//
+//	          System.out.print("\nPress Enter to Continue...");
+//	          sc.nextLine();
+//	          System.out.print("\033[H\033[2J");
+//	          obj1.menu();
 	          break;
 	        }
 	        case 4:
 	        {
-	            System.out.print("\nPlease Enter Employee's ID :");
+	           /* System.out.print("\nPlease Enter Employee's ID :");
 	            String I=sc.nextLine();
 	            try
 	            {
@@ -124,7 +141,8 @@ public class EmployeeManagementSystem {
 	            catch(IOException e)
 	            {
 	              System.out.println(e);
-	            }
+	            }*/
+	        	break;
 	        }
 	        case 5:
 	        {
@@ -136,9 +154,12 @@ public class EmployeeManagementSystem {
 	        	    System.exit(0);
 	        	  
 	        }
+	      
 	      }
+	    }
+	    }
 		
 
 	}
 
-}
+

@@ -1,9 +1,10 @@
-import java.io.File;
-import java.util.Scanner;
+import java.util.List;
 
-public class Employee extends User implements Department {
+public class Employee extends User  {
        String empId;
-       String salary;
+       Double salary;
+       String DOB;
+       Department dpt;
 
 	public Employee() {
 		super();
@@ -21,6 +22,33 @@ public class Employee extends User implements Department {
 	public Employee(String firstName, String lastName, String dOB, String empId) {
 		super(firstName, lastName, dOB);
 		this.empId = empId;
+	}
+
+	
+
+	public Employee(String firstName, String lastName, String dOB, String empId, Double salary,
+			Department dpt) {
+		super(firstName, lastName, dOB);
+		this.empId = empId;
+		this.salary = salary;
+		this.DOB = dOB;
+		this.dpt = dpt;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+
+	public Department getDpt() {
+		return dpt;
+	}
+
+	public void setDpt(Department dpt) {
+		this.dpt = dpt;
 	}
 	
 	

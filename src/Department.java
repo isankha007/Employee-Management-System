@@ -1,6 +1,6 @@
 
-public interface Department {
-	public static final String departmentName = "";
-	public static final String departmentId = "";
+public class Department {
+	public static String departmentName = "";
+	public static String departmentId = "";
 	
 }
