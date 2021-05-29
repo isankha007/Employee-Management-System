@@ -31,6 +31,34 @@ public class EmployeeManagementSystem {
 	       System.out.println(sc.nextLine());
 	     }
 	   }
+	 
+	public static Employee addEmployee() {
+		 Scanner sc=new Scanner(System.in);
+		 String firstName;
+         String lastName;
+         String dOB;
+         String empId;
+         Double salary;
+        // String employ_contact;
+         Department dpt= new Department();
+         //Scanner sc=new Scanner(System.in);
+         System.out.print("Enter Employee's  first name --------: ");
+         firstName=sc.nextLine();
+         System.out.print("Enter Employee's  last name -: ");
+         lastName=sc.nextLine();
+         System.out.print("Enter Employee's ID ----------:");
+         empId=sc.nextLine();
+         System.out.print("Enter Employee's DOB ----:");
+         dOB=sc.nextLine();
+         System.out.print("Enter Employee's Dept ID ----:");
+         dpt.departmentId=sc.nextLine();
+         System.out.print("Enter Employee's Dept Name ----:");
+         dpt.departmentName=sc.nextLine();
+         System.out.print("Enter Employee's Salary ------:");
+         salary=Double.parseDouble(sc.nextLine()) ;  
+   	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt,"EMP");
+   	  return emp;
+	} 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		/** To clear the output Screen **/
@@ -61,7 +89,7 @@ public class EmployeeManagementSystem {
 	        		break;
 	        	}
 	        /** Creating class's object and calling Function using that object **/
-	        	  String firstName;
+	        	/*  String firstName;
 		          String lastName;
 		          String dOB;
 		          String empId;
@@ -83,8 +111,8 @@ public class EmployeeManagementSystem {
 		          dpt.departmentName=sc.nextLine();
 		          System.out.print("Enter Employee's Salary ------:");
 		          salary=Double.parseDouble(sc.nextLine()) ;  
-	        	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt,"EMP");
-	        	  employees.add(emp);
+	        	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt,"EMP");*/
+	        	  employees.add(addEmployee());
 	        	 // System.out.println(emp);
 	           //sc.close();
 
@@ -95,13 +123,16 @@ public class EmployeeManagementSystem {
 	        case 2:
 	        {
 	          System.out.print("\nPlease Enter Employee's ID :");
-	          String s=sc.nextLine();
+	          String empId=sc.nextLine();
 	         
-	         
+	           for(Employee emp:employees) {
+	        	   if(empId.equals(empId)) {
+	        		   System.out.println("Name "+emp.firstName+" "+emp.lastName);
+	        	   }
+	           }
 
 	            System.out.print("\nPress Enter to Continue...");
 	            sc.nextLine();
-	            System.out.print("\033[H\033[2J");
 	            menuAdmin();
 	            break;
 	          }
@@ -110,43 +141,14 @@ public class EmployeeManagementSystem {
 	        {
 	          System.out.print("\nPlease Enter Employee's ID :");
 	          String s=sc.nextLine();
-//	          Employee_Remove epr =new Employee_Remove();
-//	          epr.removeFile(s);
-//
-//	          System.out.print("\nPress Enter to Continue...");
-//	          sc.nextLine();
-//	          System.out.print("\033[H\033[2J");
-//	          obj1.menu();
+
 	          break;
 	        }
 	        case 4:
 	        {
 	           /* System.out.print("\nPlease Enter Employee's ID :");
 	            String I=sc.nextLine();
-	            try
-	            {
-	              epv.viewFile(I);
-	            }
-	            catch(Exception e)
-	            {
-	              System.out.println(e);
-	            }
-	            Employee_Update epu = new Employee_Update();
-	            System.out.print("Please Enter the detail you want to Update :");
-	    	      System.out.print("\nFor Example :\n");
-	            System.out.println("If you want to Change the Name, then Enter Current Name and Press Enter. Then write the new Name then Press Enter. It will Update the Name.\n");
-	            String s=sc.nextLine();
-	            System.out.print("Please Enter the Updated Info :");
-	            String n=sc.nextLine();
-	            try
-	            {
-	              epu.updateFile(I,s,n);
-
-	              System.out.print("\nPress Enter to Continue...");
-	              sc.nextLine();
-	              System.out.print("\033[H\033[2J");
-	              obj1.menu();
-	              break;
+	          
 	            }
 	            catch(IOException e)
 	            {
