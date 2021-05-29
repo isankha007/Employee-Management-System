@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+
 public class EmployeeManagementSystem {
      static ArrayList<Employee> employees=new ArrayList<Employee>();;
 	 public static void menuAdmin()
@@ -32,9 +34,12 @@ public class EmployeeManagementSystem {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		/** To clear the output Screen **/
-	    System.out.print("\033[H\033[2J");
+	   // System.out.print("\033[H\033[2J");
 
 	    Scanner sc=new Scanner(System.in);
+	    User usr= new User();
+	    System.out.println("Login as (User/Admin)");
+	    usr.userType= sc.nextLine();
 
 	    int i=0;
 
@@ -51,6 +56,10 @@ public class EmployeeManagementSystem {
 	      {
 	        case 1:
 	        {
+	        	if(!usr.userType.equalsIgnoreCase("admin")) {
+	        		System.out.println("only Admin Can add");
+	        		break;
+	        	}
 	        /** Creating class's object and calling Function using that object **/
 	        	  String firstName;
 		          String lastName;
@@ -74,7 +83,7 @@ public class EmployeeManagementSystem {
 		          dpt.departmentName=sc.nextLine();
 		          System.out.print("Enter Employee's Salary ------:");
 		          salary=Double.parseDouble(sc.nextLine()) ;  
-	        	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt);
+	        	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt,"EMP");
 	        	  employees.add(emp);
 	        	 // System.out.println(emp);
 	           //sc.close();

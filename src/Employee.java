@@ -3,8 +3,15 @@ import java.util.List;
 public class Employee extends User  {
        String empId;
        Double salary;
-       String DOB;
        Department dpt;
+
+	public Employee(String firstName, String lastName, String dOB, String empId, Double salary,
+			Department dpt,String userType) {
+		super(firstName, lastName, dOB, userType);
+		this.empId = empId;
+		this.salary = salary;
+		this.dpt = dpt;
+	}
 
 	public Employee() {
 		super();
@@ -19,21 +26,21 @@ public class Employee extends User  {
 		this.empId = empId;
 	}
 
-	public Employee(String firstName, String lastName, String dOB, String empId) {
-		super(firstName, lastName, dOB);
-		this.empId = empId;
-	}
-
-	
-
-	public Employee(String firstName, String lastName, String dOB, String empId, Double salary,
-			Department dpt) {
-		super(firstName, lastName, dOB);
-		this.empId = empId;
-		this.salary = salary;
-		this.DOB = dOB;
-		this.dpt = dpt;
-	}
+//	public Employee(String firstName, String lastName, String dOB, String empId) {
+//		super(firstName, lastName, dOB,userType);
+//		this.empId = empId;
+//	}
+//
+//	
+//
+//	public Employee(String firstName, String lastName, String dOB, String empId, Double salary,
+//			Department dpt) {
+//		super(firstNamelastName, dOB,userType);
+//		this.empId = empId;
+//		this.salary = salary;
+//		this.DOB = dOB;
+//		this.dpt = dpt;
+//	}
 
 	public Double getSalary() {
 		return salary;
