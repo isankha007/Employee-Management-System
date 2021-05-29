@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EmployeeManagementSystem {
-     ArrayList<Employee> employees[];
-	 public static void menu()
+     static ArrayList<Employee> employees=new ArrayList<Employee>();;
+	 public static void menuAdmin()
 	  {
 	    System.out.println("\t\t*******************************************");
 	    System.out.println("\t\t\t  EMPLOYEE MANAGEMENT SYSTEM");
@@ -38,7 +38,7 @@ public class EmployeeManagementSystem {
 
 	    int i=0;
 
-	    menu();
+	    menuAdmin();
 
 	    while(i<6)
 	    {
@@ -64,22 +64,23 @@ public class EmployeeManagementSystem {
 		          firstName=sc.nextLine();
 		          System.out.print("Enter Employee's  last name -: ");
 		          lastName=sc.nextLine();
-		          System.out.print("Enter Employee's ID ----------: \n");
+		          System.out.print("Enter Employee's ID ----------:");
 		          empId=sc.nextLine();
-		          System.out.print("Enter Employee's DOB ----: \n");
+		          System.out.print("Enter Employee's DOB ----:");
 		          dOB=sc.nextLine();
-		          System.out.print("Enter Employee's Dept ID ----: \n");
+		          System.out.print("Enter Employee's Dept ID ----:");
 		          dpt.departmentId=sc.nextLine();
-		          System.out.print("Enter Employee's Dept Name ----: \n");
+		          System.out.print("Enter Employee's Dept Name ----:");
 		          dpt.departmentName=sc.nextLine();
-		          System.out.print("Enter Employee's Salary ------: \n");
-		          salary=sc.nextDouble();  
+		          System.out.print("Enter Employee's Salary ------:");
+		          salary=Double.parseDouble(sc.nextLine()) ;  
 	        	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt);
-	        	  System.out.println(emp);
-	           
+	        	  employees.add(emp);
+	        	 // System.out.println(emp);
+	           //sc.close();
 
-	        System.out.print("\033[H\033[2J");
-	       //menu();
+	       // System.out.print("\033[H\033[2J");
+	       menuAdmin();
 	        break;
 	        }
 	        case 2:
@@ -92,7 +93,7 @@ public class EmployeeManagementSystem {
 	            System.out.print("\nPress Enter to Continue...");
 	            sc.nextLine();
 	            System.out.print("\033[H\033[2J");
-	            menu();
+	            menuAdmin();
 	            break;
 	          }
 
