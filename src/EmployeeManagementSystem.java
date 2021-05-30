@@ -1,11 +1,40 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;  
+import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 
 
 public class EmployeeManagementSystem {
+	
+	public static boolean IsAgeAllowed(String dateStr) {
+		 try {
+			  Date date=new SimpleDateFormat("ddMMyyyy").parse(dateStr);
+		      //Converting obtained Date object to LocalDate object
+		      Instant instant = date.toInstant();
+		      ZonedDateTime zone = instant.atZone(ZoneId.systemDefault());
+		      LocalDate givenDate = zone.toLocalDate();
+		      //Calculating the difference between given date to current date.
+		      Period period = Period.between(givenDate, LocalDate.now());
+		      if(period.getYears()<24) {
+		    	  return false;
+		      }
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return true;
+		
+	}
      static ArrayList<Employee> employees=new ArrayList<Employee>();;
 	 public static void menuAdmin()
 	  {
@@ -32,7 +61,7 @@ public class EmployeeManagementSystem {
 	     }
 	   }
 	 
-	public static Employee addEmployee() {
+	public static int addEmployee() {
 		 Scanner sc=new Scanner(System.in);
 		 String firstName;
          String lastName;
@@ -48,8 +77,20 @@ public class EmployeeManagementSystem {
          lastName=sc.nextLine();
          System.out.print("Enter Employee's ID ----------:");
          empId=sc.nextLine();
+         Iterator itr = employees.iterator();
+         while (itr.hasNext())
+         {
+             Employee emp = (Employee) itr.next();
+             if (emp.empId.equals(empId)) {
+                 System.out.println("ID Already exist");
+                 return 0;}
+         }
          System.out.print("Enter Employee's DOB ----:");
          dOB=sc.nextLine();
+        if(!IsAgeAllowed(dOB)) {
+        	System.out.print("Age should be >= 24 ----:");
+        	return 0;
+        }
          System.out.print("Enter Employee's Dept ID ----:");
          dpt.departmentId=sc.nextLine();
          System.out.print("Enter Employee's Dept Name ----:");
@@ -57,7 +98,42 @@ public class EmployeeManagementSystem {
          System.out.print("Enter Employee's Salary ------:");
          salary=Double.parseDouble(sc.nextLine()) ;  
    	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt,"EMP");
-   	  return emp;
+   	  employees.add(emp);
+   	  return 1;
+	} 
+	
+	public static int updateEmployee(String empIDSearch) {
+
+        Iterator itr = employees.iterator();
+        while (itr.hasNext())
+        {
+            Employee emp = (Employee) itr.next();
+            if (emp.empId.equals(empIDSearch)) {
+	       		Scanner sc=new Scanner(System.in);
+	            Department dpt= new Department();
+	            //Scanner sc=new Scanner(System.in);
+	            System.out.print("Enter Employee's  first name --------: ");
+	            emp.firstName=sc.nextLine();
+	            System.out.print("Enter Employee's  last name -: ");
+	            emp.lastName=sc.nextLine();
+	            System.out.print("Enter Employee's DOB ----:");
+	            String dOB=sc.nextLine();
+	            if(!IsAgeAllowed(dOB)) {
+	            	System.out.print("Age should be >= 24 ----:");
+	            	return 0;
+	            }
+	            System.out.print("Enter Employee's Dept ID ----:");
+	            emp.dpt.departmentId=sc.nextLine();
+	            System.out.print("Enter Employee's Dept Name ----:");
+	            emp.dpt.departmentName=sc.nextLine();
+	            System.out.print("Enter Employee's Salary ------:");
+	            return 1;
+            }
+        }
+ 
+  	  //Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt,"EMP");
+  	 // employees.add(emp);
+  	  return 0;
 	} 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -88,35 +164,12 @@ public class EmployeeManagementSystem {
 	        		System.out.println("only Admin Can add");
 	        		break;
 	        	}
-	        /** Creating class's object and calling Function using that object **/
-	        	/*  String firstName;
-		          String lastName;
-		          String dOB;
-		          String empId;
-		          Double salary;
-		         // String employ_contact;
-		          Department dpt= new Department();
-		          //Scanner sc=new Scanner(System.in);
-		          System.out.print("Enter Employee's  first name --------: ");
-		          firstName=sc.nextLine();
-		          System.out.print("Enter Employee's  last name -: ");
-		          lastName=sc.nextLine();
-		          System.out.print("Enter Employee's ID ----------:");
-		          empId=sc.nextLine();
-		          System.out.print("Enter Employee's DOB ----:");
-		          dOB=sc.nextLine();
-		          System.out.print("Enter Employee's Dept ID ----:");
-		          dpt.departmentId=sc.nextLine();
-		          System.out.print("Enter Employee's Dept Name ----:");
-		          dpt.departmentName=sc.nextLine();
-		          System.out.print("Enter Employee's Salary ------:");
-		          salary=Double.parseDouble(sc.nextLine()) ;  
-	        	  Employee emp= new Employee(firstName, lastName, dOB, empId, salary, dpt,"EMP");*/
-	        	  employees.add(addEmployee());
+	        
+	        	 int res = addEmployee();
+	        	 
+	        	  
 	        	 // System.out.println(emp);
 	           //sc.close();
-
-	       // System.out.print("\033[H\033[2J");
 	       menuAdmin();
 	        break;
 	        }
@@ -139,21 +192,30 @@ public class EmployeeManagementSystem {
 
 	        case 3:
 	        {
+	        	if(!usr.userType.equalsIgnoreCase("admin")) {
+	        		System.out.println("only Admin Can Remove");
+	        		break;
+	        	}
 	          System.out.print("\nPlease Enter Employee's ID :");
-	          String s=sc.nextLine();
-
+	          String empId=sc.nextLine();
+	          Iterator itr = employees.iterator();
+	          while (itr.hasNext())
+	          {
+	              Employee emp = (Employee) itr.next();
+	              if (emp.empId.equals(empId))
+	                  itr.remove();
+	          }
 	          break;
 	        }
 	        case 4:
 	        {
-	           /* System.out.print("\nPlease Enter Employee's ID :");
-	            String I=sc.nextLine();
-	          
-	            }
-	            catch(IOException e)
-	            {
-	              System.out.println(e);
-	            }*/
+	        	if(!usr.userType.equalsIgnoreCase("admin")) {
+	        		System.out.println("only Admin Can Update");
+	        		break;
+	        	}
+		          System.out.print("\nPlease Enter Employee's ID to Update :");
+		          String empId=sc.nextLine();
+		          updateEmployee(empId);
 	        	break;
 	        }
 	        case 5:

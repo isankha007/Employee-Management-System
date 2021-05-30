@@ -4,6 +4,17 @@ public class Employee extends User  {
        String empId;
        Double salary;
        Department dpt;
+       String emailID;
+       
+
+	public Employee(String firstName, String lastName, String dOB, String userType, String empId, Double salary,
+			Department dpt, String emailID) {
+		super(firstName, lastName, dOB, userType);
+		this.empId = empId;
+		this.salary = salary;
+		this.dpt = dpt;
+		this.emailID = emailID;
+	}
 
 	public Employee(String firstName, String lastName, String dOB, String empId, Double salary,
 			Department dpt,String userType) {
