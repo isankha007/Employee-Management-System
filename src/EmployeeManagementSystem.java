@@ -1,5 +1,9 @@
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -16,6 +20,31 @@ import java.time.ZonedDateTime;
 
 public class EmployeeManagementSystem {
 	
+	public static void storeIT(ArrayList<Employee> employee) {
+		try {
+			FileOutputStream f = new FileOutputStream("EmpList.ser");
+			ObjectOutputStream os = new ObjectOutputStream(f);
+			os.writeObject(employee);
+			os.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			// TODO: handle exceptions
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public static void fetchIT() {
+		// TODO Auto-generated constructor stub
+		try {
+			FileInputStream f = new FileInputStream("EmpList.ser");
+			ObjectInputStream os = new ObjectInputStream(f);
+			employees=(ArrayList<Employee>)os.readObject();
+			os.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			}
+		}
 	public static boolean IsAgeAllowed(String dateStr) {
 		 try {
 			  Date date=new SimpleDateFormat("ddMMyyyy").parse(dateStr);
@@ -36,6 +65,7 @@ public class EmployeeManagementSystem {
 		
 	}
      static ArrayList<Employee> employees=new ArrayList<Employee>();;
+     //fetchIt();
 	 public static void menuAdmin()
 	  {
 	    System.out.println("\t\t*******************************************");
@@ -139,7 +169,7 @@ public class EmployeeManagementSystem {
 		// TODO Auto-generated method stub
 		/** To clear the output Screen **/
 	   // System.out.print("\033[H\033[2J");
-
+		//fetchIT();
 	    Scanner sc=new Scanner(System.in);
 	    User usr= new User();
 	    System.out.println("Login as (User/Admin)");
@@ -165,7 +195,7 @@ public class EmployeeManagementSystem {
 	        		break;
 	        	}
 	        
-	        	 int res = addEmployee();
+	        	 addEmployee();
 	        	 
 	        	  
 	        	 // System.out.println(emp);
@@ -198,7 +228,7 @@ public class EmployeeManagementSystem {
 	        	}
 	          System.out.print("\nPlease Enter Employee's ID :");
 	          String empId=sc.nextLine();
-	          Iterator itr = employees.iterator();
+	          Iterator<Employee> itr = employees.iterator();
 	          while (itr.hasNext())
 	          {
 	              Employee emp = (Employee) itr.next();
@@ -220,12 +250,13 @@ public class EmployeeManagementSystem {
 	        }
 	        case 5:
 	        {
-	        	
+	        	    //storeIT(employees);
 	        	    System.out.println("\n*****************************************");
 	        	    System.out.println("$ cat Thank You For Using my Software :) ");
 	        	    System.out.println("*****************************************");
-	        	    System.out.println("\t\t/~ <0d3d by Sankha \n");
-	        	    System.exit(0);
+	        	    System.out.println(" by Sankha \n");
+	        	    //System.exit(0);
+	        	    sc.close();
 	        	  
 	        }
 	      
@@ -233,7 +264,7 @@ public class EmployeeManagementSystem {
 	    }
 	    }
 		
-
+  
 	}
 
 
